@@ -10,6 +10,7 @@ import Pay from '@/pages/Pay'
 import MyOrder from '@/pages/MyOrder'
 import {getUserInfo} from '@/utils/storageUtils'
 
+
 export default [{
     path: "/",
     component: Index,
