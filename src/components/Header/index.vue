@@ -16,7 +16,7 @@
                 请
                 <router-link to="/login">登录</router-link>
                 <span>
-                  <router-link to="/login">免费注册</router-link>
+                  <router-link to="/register">免费注册</router-link>
                 </span>
               </li>
             </ul>

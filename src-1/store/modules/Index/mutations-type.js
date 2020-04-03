@@ -1,1 +1,0 @@
-export const RECEIVEBASECATEGORYLIST="receiveBaseCategoryList"
