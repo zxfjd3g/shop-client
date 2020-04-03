@@ -6,7 +6,7 @@
         <div class="checkout-tit">
           <h4 class="tit-txt">
             <span class="success-icon"></span>
-            <spanclass="success-info">订单提交成功，请您及时付款，以便尽快为您发货~~</span>
+            <span class="success-info">订单提交成功，请您及时付款，以便尽快为您发货~~</span>
           </h4>
           <div class="paymark">
             <span class="fl">请您在提交订单<em class="orange time">4小时</em>之内完成支付，超时订单会自动取消。订单号：<em>145687</em></span>

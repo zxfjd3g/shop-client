@@ -21,7 +21,7 @@
         <div class="product-info">
           <div class="fl preview-wrap">
             <div class="zoom">
-              <Zoom :smallImg="skuImageList[currentIndex].imgUrl" :bigImg="skuImageList[currentIndex].imgUrl" />
+              <Zoom v-if="skuImageList[currentIndex]" :smallImg="skuImageList[currentIndex].imgUrl" :bigImg="skuImageList[currentIndex].imgUrl" />
               <Thumb :smallImgArr="skuImageList" />
             </div>
           </div>
