@@ -7,7 +7,7 @@
     <div class="py-container">
       <div class="yui3-g SortList">
         <div class="yui3-u Center banerArea">
-          <Carousel width="721" height="455" :carouselList="carouselList" name="brandCarousel" />
+          <Carousel width="721" height="455" :carouselList="carouselList"/>
         </div>
         <div class="yui3-u Right">
           <div class="news">
@@ -196,8 +196,6 @@ import ShopCartNav from './ShopCartNav/ShopCartNav'
 import IndexRecommend from './IndexRecommend/IndexRecommend'
 import RecommendLike from './RecommendLike/RecommendLike'
 import TabBox from './TabBox/TabBox'
-import TypeNav from '@/components/TypeNav'
-import Carousel from '@/components/Carousel'
 export default {
   name:"Index",
   components:{
@@ -205,8 +203,6 @@ export default {
     IndexRecommend,
     RecommendLike,
     TabBox,
-    TypeNav,
-    Carousel
   },
   computed:{
     ...mapState({

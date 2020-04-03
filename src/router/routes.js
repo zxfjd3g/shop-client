@@ -36,12 +36,11 @@ export default [{
     path: "/login",
     component: Login,
     beforeEnter(to, from, next) {
-      if (getUserInfo().token) {
+      if (getUserInfo().token) {// 如果已登陆, 直播跳转到首页
         next('/')
       } else {
         next();
       }
-      
     }
   },
   {

@@ -1,4 +1,3 @@
-<<<<<<< HEAD
 # guli_shop
 
 ## Project setup
@@ -23,6 +22,3 @@ yarn lint
 
 ### Customize configuration
 See [Configuration Reference](https://cli.vuejs.org/config/).
-=======
-# guli-shop
->>>>>>> 6996be1d07cf999bf71616d98af715fe759c3361

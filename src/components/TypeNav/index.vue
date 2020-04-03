@@ -8,7 +8,7 @@
                     </div>
                     <div class="sort"  v-show="isShow&&baseCategoryList.length">
                         <div class="all-sort-list2">
-                            <div class="item" @mouseenter="hover(index)" @click="toSearch" v-for="(item,index) in baseCategoryList" :key="item.categoryId">
+                            <div class="item" :class="{item_on: currentIndex===index}" @mouseenter="hover(index)" @click="toSearch" v-for="(item,index) in baseCategoryList" :key="item.categoryId">
                                 <h3>
                                     <a href="javascript:;" :data-categoryName="item.categoryName" :data-category1Id="item.categoryId">{{item.categoryName}}</a>
                                 </h3>
@@ -80,7 +80,7 @@ export default {
     hover: throttle(function (index) {
       console.log('hover', index)
       this.currentIndex = index;
-    }, 200),
+    }, 200, {leading: false}),
 
     // hover(index) {
     //   console.log('hover', index)
@@ -106,7 +106,15 @@ export default {
           query={category3Id:category3id}
         }
         query.categoryName=categoryname;
-        this.$router.push({path:"/search",query});
+        const currentPath = this.$route.path
+        if (currentPath==='/search') {
+          this.$router.replace({path:"/search",query});
+        } else {
+          this.$router.push({path:"/search",query});
+        }
+        
+        this.isShow = false
+        this.currentIndex = -1
       }
     }
 }
@@ -123,5 +131,8 @@ export default {
 }
 .type-nav .sort .item-list {
   display: block;
+}
+.item_on {
+  background: #d9d9d9
 }
 </style>

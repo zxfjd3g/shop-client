@@ -1,9 +1,7 @@
 <template>
   <div id="app">
     <Header/>
-    
     <router-view></router-view>
-
     <Footer v-show="$route.meta.isShowFooter"/>
   </div>
 </template>

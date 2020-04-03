@@ -41,29 +41,6 @@
               }"
               @changeCurrentPage="handleCurrentChange"
             />
-
-            <!-- <div class="choose-order">
-                            <div class="sui-pagination pagination-large top-pages">
-                                <ul>
-                                    <li class="prev disabled">
-                                        <a href="javascript:">«上一页</a>
-                                    </li>
-                                    <li class="active disabled">
-                                        <a href="javascript:">1</a>
-                                    </li>
-                                    <li class="active">
-                                        <a href="javascript:">1</a>
-                                    </li>
-
-                                    <li class="prev disabled">
-                                        <a href="javascript:">下一页»</a>
-                                    </li>
-                                </ul>
-                                <div>
-                                    <span>&nbsp;&nbsp;&nbsp;&nbsp;共2页&nbsp;</span>
-                                </div>
-                            </div>
-                        </div> -->
             <div class="clearfix"></div>
           </div>
         </div>
@@ -160,7 +137,6 @@
 
 <script>
 import { mapState } from 'vuex';
-import { Pagination } from 'element-ui';
 import OrderCard from './OrderCard/OrderCard';
 export default {
   name: 'OrderList',
@@ -193,57 +169,65 @@ export default {
     }
   },
   components: {
-    [Pagination.name]: Pagination,
     OrderCard
   }
 };
 </script>
 
-<style lang="stylus" scoped>
-.body
-  color #666
-  .ever
-    margin 20px
+<style scoped>
+.body {
+  color: #666;
+}
+.body .ever {
+  margin: 20px;
+}
 .body .order,
-.body .discount
-  border 1px solid #ddd
-  margin 0 20px 12px
-.order
-  .mt
-    overflow hidden
-    padding 12px 10px
-    background-color #f1f1f1
-    font-size 15px
-  .order-detail
-    padding 10px
-    text-align center
-.order-detail
-  .none
-    color #666
-    font-size 16px
-  .orders
-    padding 10px 0
-.orders
-  .delete
-    cursor pointer
-.like-list
-  padding 20px
-  color #666
-  margin -12px 20px 20px
-  border 1px solid #ddd
-  border-top 0
-  ul
-    li
-      .attr
-        padding-bottom 10px
-      .list-wrap
-        line-height 22px
+.body .discount {
+  border: 1px solid #ddd;
+  margin: 0 20px 12px;
+}
+.order .mt {
+  overflow: hidden;
+  padding: 12px 10px;
+  background-color: #f1f1f1;
+  font-size: 15px;
+}
+.order .order-detail {
+  padding: 10px;
+  text-align: center;
+}
+.order-detail .none {
+  color: #666;
+  font-size: 16px;
+}
+.order-detail .orders {
+  padding: 10px 0;
+}
+.orders .delete {
+  cursor: pointer;
+}
+.like-list {
+  padding: 20px;
+  color: #666;
+  margin: -12px 20px 20px;
+  border: 1px solid #ddd;
+  border-top: 0;
+}
+.like-list ul li .attr {
+  padding-bottom: 10px;
+}
+.like-list ul li .list-wrap {
+  line-height: 22px;
+}
 .like-list ul li .attr,
 .like-list ul li .price,
-.like-list ul li .commit
-  padding-left 15px
-.list-wrap
-  .price
-    font 16px "微软雅黑"
-    color #e4393c
+.like-list ul li .commit {
+  padding-left: 15px;
+}
+.list-wrap .price {
+  font: 16px "微软雅黑";
+  color: #e4393c;
+}
+
+
 </style>

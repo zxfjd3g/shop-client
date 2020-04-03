@@ -1,5 +1,5 @@
 <template>
-  <div class="swiper-container" :ref="name" :style="{width:`${width}px`,height:`${height}px`}">
+  <div class="swiper-container" ref="swiper" :style="{width:`${width}px`,height:`${height}px`}">
     <div class="swiper-wrapper">
       <div class="swiper-slide" v-for="carousel in carouselList" :key="carousel.id">
         <img :src="carousel.imgUrl" />
@@ -17,10 +17,13 @@
   export default {
     name: "Carousel",
     
-    props: ["width", "height", "carouselList", "name"],
+    props: ["width", "height", "carouselList"],
     
     mounted() {
-      this.swiper = new Swiper(this.$refs[this.name], {
+      this.swiper = new Swiper(this.$refs.swiper, {
+        // 循环轮播
+        loop: true,
+        
         // 如果需要分页器
         pagination: {
           el: '.swiper-pagination',
@@ -57,10 +60,5 @@
     width: 100%;
     height: 100%;
     transition: all 400ms;
-  }
-
-  img:hover {
-    transform-origin: center center;
-    transform: scale(1.1);
   }
 </style>

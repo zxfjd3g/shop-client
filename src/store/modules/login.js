@@ -21,7 +21,7 @@ const mutations = {
 }
 
 const actions = {
-  async toLogin({
+  async login({
     commit
   }, {
     callback,

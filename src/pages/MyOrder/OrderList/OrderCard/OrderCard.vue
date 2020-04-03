@@ -3,9 +3,11 @@
     <thead>
       <tr>
         <th colspan="5">
-          <span class="ordertitle"
-            >{{ order.createTime }} 订单编号：{{ order.outTradeNo }}
-            <span class="pull-right delete"><img src="./img/delete.png"/></span
+          <span class="ordertitle">
+            {{ order.createTime }} 订单编号：{{ order.outTradeNo }}
+            <span class="pull-right delete">
+              <img src="./img/delete.png"/>
+            </span
           ></span>
         </th>
       </tr>
@@ -55,12 +57,12 @@ export default {
     order: Array.Required,
     orderInfo: Object.Required
   }
-};
+}
 </script>
 
-<style lang="stylus" scoped>
-.typographic
-  img
-    width 82px
-    height 82px
+<style scoped>
+.typographic img {
+  width: 82px;
+  height: 82px;
+}
 </style>

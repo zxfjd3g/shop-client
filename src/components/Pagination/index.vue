@@ -113,7 +113,7 @@
 
 <style lang="stylus" scoped>
 .pagination {
-  button{
+  button {
     margin: 0 5px;
     background-color: #f4f4f5;
     color: #606266;
@@ -130,11 +130,11 @@
     box-sizing: border-box;
     text-align: center;
     border: 0;
-    &[disabled]{
+    &[disabled] {
       color: #c0c4cc;
       cursor: not-allowed;
     }
-    &.active{
+    &.active {
       cursor: not-allowed;
       background-color: #409eff;
       color: #fff;

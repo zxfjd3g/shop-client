@@ -21,7 +21,8 @@
               <img :src="recommend.imgUrl" />
             </div>
             <div class="yui3-u row-330 floorBanner">
-              <!-- <div
+              <!-- 
+              <div
                 id="floorCarousel"
                 data-ride="carousel"
                 data-interval="4000"
@@ -59,7 +60,8 @@
                   class="carousel-control right"
                   >›</a
                 >
-              </div> -->
+              </div> 
+              -->
               <Carousel width="329" height="360" :carouselList="recommend.carouselList" :name="recommend.id" />
             </div>
             <div class="yui3-u row-220 split">
@@ -109,13 +111,9 @@
 </template>
 
 <script>
-import Carousel from '@/components/Carousel'
 export default {
   name: 'IndexRecommend',
   props:["recommend"],
-  components:{
-    Carousel
-  }
 };
 </script>
 

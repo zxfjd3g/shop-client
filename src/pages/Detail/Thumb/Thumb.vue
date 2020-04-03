@@ -1,8 +1,8 @@
 <template>
     <div class="swiper-container">
         <div class="swiper-wrapper">
-            <div class="swiper-slide"  v-for="(imgUrl,index) in smallImgArr" :key="imgUrl+index">
-              <img :src="imgUrl" :class="currentIndex===index?'active':''" @click="changeIndex(index)">
+            <div class="swiper-slide"  v-for="(img,index) in smallImgArr" :key="img.id">
+              <img :src="img.imgUrl" :class="currentIndex===index?'active':''" @click="changeIndex(index)">
             </div>
         </div>
         <div class="swiper-button-next"></div>

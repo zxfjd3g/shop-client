@@ -99,5 +99,4 @@ img{
 .mask:hover~.small,.mask:hover~.big{
     display: block;
 }
-
 </style>

@@ -10,8 +10,7 @@
         <div class="cart-main">
           <div class="yui3-g cart-th">
             <div class="yui3-u-1-4">
-              <input class="chooseAll" type="checkbox" name="" id="" value="" />
-              全部
+              勾选操作
             </div>
             <div class="yui3-u-1-4">商品</div>
             <div class="yui3-u-1-8">单价（元）</div>
@@ -91,12 +90,10 @@
           </div>
         </div>
         <div class="cart-tool">
-          <div class="select-all" @click="checkAllCart">
+          <div class="select-all">
             <input
               class="chooseAll"
               type="checkbox"
-              name=""
-              id=""
               v-model="isAllChecked"
             />
             <span>全选</span>
@@ -118,7 +115,7 @@
               </span>
               <span>
                 <em>已节省：</em>
-                <i>-¥20.00</i>
+                <i>¥20.00</i>
               </span>
             </div>
             <div class="sumbtn">
@@ -329,36 +326,39 @@ export default {
   name: 'ShopCart',
   data() {
     return {
-      isAllChecked: false
+      // isAllChecked: false
     };
   },
   computed: {
     ...mapState({
       shopCartList: state => state.shopCart.shopCartList
     }),
-    ...mapGetters(['total', 'selectedTotal', 'selectedArr'])
+    ...mapGetters(['total', 'selectedTotal', 'selectedArr']),
+
+    isAllChecked: {
+      get () {
+        return this.shopCartList.every(item => !!item.isChecked)
+      },
+
+      set (value) {
+        this.checkAllCart(value)
+      }
+    }
   },
   methods: {
     async checkCart(good) {
       const { skuId, isChecked } = good;
-      if (this.selectedArr.length === this.shopCartList.length) {
-        this.isAllChecked = true;
-      } else {
-        this.isAllChecked = false;
-      }
       await this.$store.dispatch('checkCart', { skuId, isChecked: isChecked });
       this.$store.dispatch('getShopCartList');
     },
-    async checkAllCart() {
-      const isAllChecked = this.isAllChecked;
+    async checkAllCart(isChecked) {
       let promiseArr = [];
       this.shopCartList.forEach(({ skuId }) => {
         promiseArr.push(
-          this.$store.dispatch('checkCart', { skuId, isChecked: !isAllChecked })
+          this.$store.dispatch('checkCart', { skuId, isChecked })
         );
       });
       await Promise.all(promiseArr);
-      this.isAllChecked = !isAllChecked;
       this.$store.dispatch('getShopCartList');
     },
     async deleteCart(skuId) {
@@ -372,7 +372,6 @@ export default {
       });
       await Promise.all(promiseArr);
       await this.$store.dispatch('getShopCartList');
-      if (this.selectedArr === 0) this.isAllChecked = false;
     },
     async change(select, good, value) {
       let { skuId, skuNum } = good;
@@ -395,210 +394,258 @@ export default {
 };
 </script>
 
-<style lang="stylus" scoped>
-.top
-  background-color #f1f1f1
-a
-  color #666
-  text-decoration none
-  &.increment
-    text-decoration none
-    width 6px
-    text-align center
-    padding 8px
-    -moz-padding-top 10px
-    -moz-padding-bottom 13px
-    -webkit-padding-top 10px
-    -webkit-padding-bottom 13px
-  &.sum-btn
-    display block
-    position relative
-    width 96px
-    height 52px
-    line-height 52px
-    color #fff
-    text-align center
-    font-size 18px
-    font-family "Microsoft YaHei"
-    background #e1251b
-    overflow hidden
-.sumbtn
-  float right
-  a
-    &:hover
-      color #fff
-.logoArea
-  overflow hidden
-  position relative
-.logo
-  background url(./img/icons.png) no-repeat
-  background-position -370px 3px
-  width 177px
-  height 75px
-  .title
-    font 19px "微软雅黑"
-    position absolute
-    top 24px
-    left 190px
-.search
-  position absolute
-  right 0
-  top 22px
-  font-size 16px
-  .btn-danger
-    font-size 16px
-.cart-th
-  background #f5f5f5
-  border 1px solid #ddd
-  padding 10px
-.cart-shop
-  border-bottom 2px solid #ddd
-  padding 10px 9px 5px
-  .self
-    color #fff
-    background #e1251b
-    padding 2px
-.cart-tool
-  overflow hidden
-  border 1px solid #ddd
+<style scoped>
+.top {
+  background-color: #f1f1f1;
+}
+a {
+  color: #666;
+  text-decoration: none;
+}
+a.increment {
+  text-decoration: none;
+  width: 6px;
+  text-align: center;
+  padding: 8px;
+  padding-top: 10px;
+  padding-bottom: 13px;
+  -moz-padding-top: 10px;
+  -moz-padding-bottom: 13px;
+  -webkit-padding-top: 10px;
+  -webkit-padding-bottom: 13px;
+}
+a.sum-btn {
+  display: block;
+  position: relative;
+  width: 96px;
+  height: 52px;
+  line-height: 52px;
+  color: #fff;
+  text-align: center;
+  font-size: 18px;
+  font-family: "Microsoft YaHei";
+  background: #e1251b;
+  overflow: hidden;
+}
+.sumbtn {
+  float: right;
+}
+.sumbtn a:hover {
+  color: #fff;
+}
+.logoArea {
+  overflow: hidden;
+  position: relative;
+}
+.logo {
+  background: url("./img/icons.png") no-repeat;
+  background-position: -370px 3px;
+  width: 177px;
+  height: 75px;
+}
+.logo .title {
+  font: 19px "微软雅黑";
+  position: absolute;
+  top: 24px;
+  left: 190px;
+}
+.search {
+  position: absolute;
+  right: 0;
+  top: 22px;
+  font-size: 16px;
+}
+.search .btn-danger {
+  font-size: 16px;
+}
+.cart-th {
+  background: #f5f5f5;
+  border: 1px solid #ddd;
+  padding: 10px;
+}
+.cart-shop {
+  border-bottom: 2px solid #ddd;
+  padding: 10px 9px 5px;
+}
+.cart-shop .self {
+  color: #fff;
+  background: #e1251b;
+  padding: 2px;
+}
+.cart-tool {
+  overflow: hidden;
+  border: 1px solid #ddd;
+}
 .cart-body,
-.deled
-  margin 15px 0
-.cart-body
-  border 1px solid #ddd
-.cart-list
-  ul
-    padding 10px
-    border-bottom 1px solid #ddd
-    li
-      display inline-block
-      *display inline
-      *zoom 1
+.deled {
+  margin: 15px 0;
+}
+.cart-body {
+  border: 1px solid #ddd;
+}
+.cart-list ul {
+  padding: 10px;
+  border-bottom: 1px solid #ddd;
+}
+.cart-list ul li {
+  display: inline-block;
+  *display: inline;
+  *zoom: 1;
+}
 .price,
 .sum,
 .shopname,
-.itxt
-  font-family "微软雅黑"
-.shopname
-  font-size 14px
-.self
-  font-size 12px
+.itxt {
+  font-family: "微软雅黑";
+}
+.shopname {
+  font-size: 14px;
+}
+.self {
+  font-size: 12px;
+}
 .price,
-.sum
-  font-size 16px
-.good-item
-  width 260px
-.item-img
-  float left
-  width 100px
-  height 90px
-.item-txt
-  width 200px
-.goods-list
-  input
-    border 1px solid #ddd
-.mins
-  border 1px solid #ddd
-  border-right 0
-  float left
-.plus
-  border 1px solid #ddd
-  border-left 0
-  float left
-.itxt
-  width 40px
-  height 32px
-  float left
-  text-align center
-  font-size 14px
-  zoom 1
+.sum {
+  font-size: 16px;
+}
+.good-item {
+  width: 260px;
+}
+.item-img {
+  float: left;
+  width: 100px;
+  height: 90px;
+}
+.item-txt {
+  width: 200px;
+}
+.goods-list input {
+  border: 1px solid #ddd;
+}
+.mins {
+  border: 1px solid #ddd;
+  border-right: 0;
+  float: left;
+}
+.plus {
+  border: 1px solid #ddd;
+  border-left: 0;
+  float: left;
+}
+.itxt {
+  width: 40px;
+  height: 32px;
+  float: left;
+  text-align: center;
+  font-size: 14px;
+  zoom: 1;
+}
 .select-all,
-.option
-  padding 10px
-  overflow hidden
-  float left
-.option
-  a
-    float left
-    padding 0 10px
-.money-box
-  float right
+.option {
+  padding: 10px;
+  overflow: hidden;
+  float: left;
+}
+.option a {
+  float: left;
+  padding: 0 10px;
+}
+.money-box {
+  float: right;
+}
 .chosed,
-.sumprice
-  float left
-  padding 0 10px
-.chosed
-  line-height 26px
-.sumprice
-  width 200px
-  line-height 22px
-  em
-    text-align right
-.summoney
-  color #c81623
-  font 16px "微软雅黑"
-.del
-  background #fffdee
-  .goods-list
-    display block
-    white-space nowrap
-    overflow hidden
-    text-overflow ellipsis
-    margin-top 15px
-.sui-nav
-  &.nav-tabs
-    background #f1f1f1
-    padding-left 0
-    border 1px solid #ddd
-    overflow hidden
-    & > li
-      & > a
-        border 0
-        padding 10px 20px
-        font-family "微软雅黑"
-    & > .active
-      & > a
-        background-color #e1251b
-        color #fff
-        border-radius 0
-        border 0
-.item
-  ul
-    width 1000px
-    margin 0 auto
-    li
-      list-style-type none
-      display inline-block
-      margin-right -7px
-      border 1px dashed #ddd
-      padding 20px
-      *display inline
-      *zoom 1
-      position relative
-      zoom 1
-.carousel-control
-  border-radius 0
-  width 22px
-  border 0
-  background #ddd
+.sumprice {
+  float: left;
+  padding: 0 10px;
+}
+.chosed {
+  line-height: 26px;
+}
+.sumprice {
+  width: 270px;
+  line-height: 22px;
+}
+.sumprice em {
+  text-align: right;
+}
+.summoney {
+  color: #c81623;
+  font: 16px "微软雅黑";
+  margin-right: 10px;
+}
+.del {
+  background: #fffdee;
+}
+.del .goods-list {
+  display: block;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  margin-top: 15px;
+}
+.sui-nav.nav-tabs {
+  background: #f1f1f1;
+  padding-left: 0;
+  border: 1px solid #ddd;
+  overflow: hidden;
+}
+.sui-nav.nav-tabs > li > a {
+  border: 0;
+  padding: 10px 20px;
+  font-family: "微软雅黑";
+}
+.sui-nav.nav-tabs > .active > a {
+  background-color: #e1251b;
+  color: #fff;
+  border-radius: 0;
+  border: 0;
+}
+.item ul {
+  width: 1000px;
+  margin: 0 auto;
+}
+.item ul li {
+  list-style-type: none;
+  display: inline-block;
+  margin-right: -7px;
+  border: 1px dashed #ddd;
+  padding: 20px;
+  *display: inline;
+  *zoom: 1;
+  position: relative;
+  zoom: 1;
+}
+.carousel-control {
+  border-radius: 0;
+  width: 22px;
+  border: 0;
+  background: #ddd;
+}
 .intro,
 .money,
-.incar
-  line-height 20px
+.incar {
+  line-height: 20px;
+}
 .money,
-.incar
-  text-align center
-.money
-  font 14px "微软雅黑"
-  color #c81623
-.incar
-  margin 10px 0
-.car
-  width 20px
-  height 20px
-  position absolute
-  background url(./img/icons.png) no-repeat
-  background-position -422px -135px
-.cartxt
-  padding-left 23px
+.incar {
+  text-align: center;
+}
+.money {
+  font: 14px "微软雅黑";
+  color: #c81623;
+}
+.incar {
+  margin: 10px 0;
+}
+.car {
+  width: 20px;
+  height: 20px;
+  position: absolute;
+  background: url("./img/icons.png") no-repeat;
+  background-position: -422px -135px;
+}
+.cartxt {
+  padding-left: 23px;
+}
+
 </style>
